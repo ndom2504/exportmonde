@@ -59,6 +59,9 @@ Le suivi est **consentement d'abord** (conforme aux exigences canadiennes/québ�
 - Adresse : 127 Rue Tablot, Laurier-Station, QC G0S 1N0
 - Numéro d'entreprise : 1178887007
 
+## Assistant IA (ChatGPT)
+Widget « Assistant EMP » sur toutes les pages publiques : questions-réponses sur les services (réponses générées par IA, modèle gpt-5.4 via la clé universelle Emergent, réglages `EMERGENT_LLM_KEY` / `AI_MODEL`), streaming mot à mot, et mini-formulaire intégré qui crée une demande de soumission visible dans l'espace admin (source : assistant_ia, avec notification courriel). Garde-fous : l'assistant ne peut pas inventer de faits, tarifs ou promesses ; il refuse les services réglementés et oriente vers des professionnels autorisés ; limite de 20 messages/heure/IP ; historique conservé dans MongoDB (`ai_chats`).
+
 ## Tests exécutés (résultats réels)
 - POST /api/leads valide → `{"ok":true,"email_sent":true}` (courriel reçu par le destinataire configuré)
 - Honeypot → `{"filtered":true}` ; entrées invalides → 422 détaillé ; limite de débit active

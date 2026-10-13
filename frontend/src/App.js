@@ -18,6 +18,7 @@ import AdminLogin from "@/pages/AdminLogin";
 import AdminDashboard from "@/pages/AdminDashboard";
 import NotFound from "@/pages/NotFound";
 import ConsentBanner from "@/components/ConsentBanner";
+import AssistantWidget from "@/components/AssistantWidget";
 import { initAnalytics } from "@/lib/analytics";
 
 function ScrollToTop() {
@@ -58,6 +59,7 @@ function Shell() {
   return (
     <>
       {!isAdmin && <Nav />}
+      {!isAdmin && <AssistantWidget />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<Services />} />

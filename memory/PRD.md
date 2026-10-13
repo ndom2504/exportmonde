@@ -32,6 +32,8 @@ Concevoir, développer, tester et documenter le site web corporatif complet d'Ex
 - Ressources : liste + détail dynamiques depuis MongoDB, 4 articles bilingues pré-rédigés.
 - Admin : connexion, tableau des demandes avec statuts, éditeur d'articles bilingue.
 - SEO complet, favicon SVG EMP, robots.txt, sitemap.xml, données structurées.
+- Coordonnées réelles intégrées (téléphone, adresse, numéro d'entreprise) + bannière de consentement + événements de conversion (consentement d'abord).
+- Assistant IA visiteur « Assistant EMP » (gpt-5.4, streaming SSE, garde-fous, mini-formulaire de demande → admin + courriel).
 
 ## Backlog priorisé
 - P1 : brancher Google Analytics (renseigner REACT_APP_GA_MEASUREMENT_ID dans frontend/.env) et valider la propriété Google Search Console (DNS ou balise meta) à la mise en ligne. Le consentement et les événements de conversion (generate_lead, contact_email_click, contact_phone_click, consultation_request_click) sont déjà implémentés.
