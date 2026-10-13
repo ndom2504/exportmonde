@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 214 60% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 214 60% 14%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 214 60% 14%;
+    --primary: 215 61% 14%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 215 61% 14%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 42%;
+    --accent: 214 82% 52%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 22% 91%;
+    --input: 220 22% 91%;
+    --ring: 214 82% 52%;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-ink;
+    font-family: "Instrument Sans", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    @apply bg-electric text-white;
+  }
+
+  :focus-visible {
+    outline: 2px solid #1e6feb;
+    outline-offset: 2px;
+  }
+}
+
+.font-display {
+  font-family: "Fraunces", Georgia, serif;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

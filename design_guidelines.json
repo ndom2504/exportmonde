@@ -1,0 +1,92 @@
+{
+  "brand_identity": {
+    "name": "Export Monde Prestige Inc. (EMP)",
+    "tagline_fr": "Solutions numériques | Ingénierie | Gestion de projets | Construction | Approvisionnements",
+    "tagline_en": "Digital Solutions | Engineering | Project Management | Construction | Procurement",
+    "positioning": "Canadian digital engineering and construction project management firm operating in Ontario, Ottawa, and Quebec.",
+    "emotional_tone": "Authoritative, Swiss-structured, high-tech engineering precision, sober elegance, zero fluff, instant B2B trust within 5 seconds."
+  },
+  "color_palette": {
+    "archetype": "Swiss & High-Contrast / Performance Pro Hybrid",
+    "primary_dark": "#0B132B",
+    "primary_navy": "#1C2541",
+    "graphite_slate": "#1E293B",
+    "graphite_subdued": "#334155",
+    "accent_electric_blue": "#2563EB",
+    "accent_cyan_turquoise": "#06B6D4",
+    "neutral_light_bg": "#F8FAFC",
+    "neutral_border": "#E2E8F0",
+    "pure_white": "#FFFFFF",
+    "text_dark": "#0F172A",
+    "text_muted": "#475569",
+    "rules": [
+      "Never use dark gradients flat on full screens; dark blue #0B132B as solid grounded surfaces with precise 1px borders (#1E293B or rgba(255,255,255,0.1)).",
+      "Accent color electric blue (#2563EB) and turquoise (#06B6D4) reserved exclusively for active states, kinetic borders, interactive indicators, and primary CTAs.",
+      "High contrast text: Light surfaces use #0F172A text; dark surfaces use #FFFFFF or #F8FAFC."
+    ]
+  },
+  "typography": {
+    "heading_font": "Outfit or Barlow Condensed, sans-serif (Display precision, bold tracking-tight)",
+    "body_font": "Plus Jakarta Sans or DM Sans, sans-serif (High legibility, modern corporate)",
+    "mono_font": "JetBrains Mono, monospace (For stats, operational codes, BIM coordinates, contract data)",
+    "hierarchy": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-none",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight",
+      "h3": "text-xl sm:text-2xl font-semibold",
+      "h4": "text-lg sm:text-xl font-medium",
+      "body": "text-base sm:text-lg leading-relaxed text-slate-700",
+      "overlines": "text-xs uppercase tracking-[0.2em] font-mono text-blue-600 font-semibold"
+    }
+  },
+  "layout_and_spacing": {
+    "mode": "Swiss Grid & Bento Grid Architecture",
+    "spacing_scale": "Generous padding system: section spacing py-20 lg:py-32, container px-4 sm:px-8 lg:px-12",
+    "bento_grid_rules": [
+      "Tetris Bento for Home services & operational advantages: grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8",
+      "Hero cell: col-span-full md:col-span-8 row-span-2 with dark blue precision card",
+      "High-density grid for Admin Dashboard and Cost Estimation widgets: grid-cols-1 md:grid-cols-4 gap-4"
+    ]
+  },
+  "motion_and_interactions": {
+    "lenis_smooth_scroll": true,
+    "hero_kinetic_reveal": "Masked line-by-line reveal using Framer Motion (staggerChildren: 0.1, duration: 0.8)",
+    "scroll_reveal": "Framer motion viewport once: opacity 0 to 1, y 20 to 0",
+    "editorial_marquee": "Slow, smooth drifting marquee for industry standard compliance (PMI, BIM ISO 19650, Red Seal, PEO, OQ)",
+    "micro_interactions": "Subtle translate-y (-2px) on hover with border highlight and accent shadow."
+  },
+  "key_pages_structure": {
+    "home": [
+      "Header with EMP monogram logo, FR/EN toggle, sticky glassmorphic backdrop (backdrop-blur-xl bg-white/80 dark:bg-slate-950/80)",
+      "Kinetic Hero section with line reveal, Canadian engineering imagery, search/quote trigger",
+      "Editorial Marquee of standards & certifications",
+      "Bento Grid: 6 Core Engineering & Management Domains",
+      "Challenges vs EMP Solutions (Interactive comparison split canvas)",
+      "5-Step Method Timeline (Audit, Plan, Execute, Control, Handover)",
+      "Operational Advantages (Cost efficiency, digital compliance, risk mitigation)",
+      "Sectors Grid (Industrial, Civil Infrastructure, Commercial, Energy, Government)",
+      "Company Intro (Canadian roots: Ontario, Ottawa, Quebec)",
+      "Interactive FAQ accordion",
+      "Final High-Impact CTA Block & Full Multi-column Footer"
+    ],
+    "service_pages": "6 distinct detail pages (Solutions numériques, Gestion de projet construction, Estimation & contrôle des coûts, Planification de projet, Approvisionnement & coordination, Gestion des appels d'offres) with Problem, Solution, Deliverables, Benefits, Process, and Direct Quote CTA.",
+    "sectors_page": "Detailed breakdown of 5 industrial & engineering sectors served in Ontario and Quebec.",
+    "about_page": "Mission, Vision, Values, Method, Regional Commitment (Canada), Leadership & Ethics.",
+    "contact_quote_page": "Interactive multi-step quote request form with scope selector, budget, file attachment mock, direct contacts.",
+    "resources_blog": "Filterable articles list & detail view covering construction digital transformation, cost management, and Canadian regulations.",
+    "admin_dashboard": "Protected admin space with Lead Management table (filters, status updates, export) and Article Publishing Editor."
+  },
+  "image_urls": {
+    "hero_background": "https://images.unsplash.com/photo-1646295136449-6813e901ba82?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "industrial_plant": "https://images.unsplash.com/photo-1670689334799-cdc6777db8cc?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "infrastructure_crane": "https://images.unsplash.com/photo-1614326014420-1f0c741ca7e1?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "engineers_blueprint": "https://images.unsplash.com/photo-1581094488379-6a10d04c0f04?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "construction_tech_tablet": "https://images.unsplash.com/photo-1778074762022-c33cc42f79ae?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "toronto_skyline_infrastructure": "https://images.unsplash.com/photo-1579206458709-41795dac21a9?crop=entropy&cs=srgb&fm=jpg&q=85"
+  },
+  "general_ui_ux_guidelines": {
+    "test_id_attribute": "MUST add data-testid on every button, link, form input, navigation item, card, filter, language switcher, modal, and key data point using kebab-case role naming.",
+    "i18n_support": "Full Bilingual FR (Primary) / EN support with seamless state context switcher in header.",
+    "shadcn_components": "Use custom-styled Shadcn UI components for dialogs, accordions, tabs, dropdowns, forms, tables, and sonner toasts.",
+    "no_fake_elements": "No fake countdown timers, no fake customer testimonials. Use authentic methodology highlights, clear deliverable specs, and Canadian compliance details."
+  }
+}
