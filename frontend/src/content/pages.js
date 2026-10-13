@@ -167,14 +167,14 @@ export const LEGAL = {
       },
       {
         title: { fr: "6. Renseignements", en: "6. Contact" },
-        body: { fr: "Pour toute question relative à la confidentialité : info@misterdil.ca", en: "For any privacy question: info@misterdil.ca" },
+        body: { fr: "Pour toute question relative à la confidentialité : info@misterdil.ca — +1 581 443 9464 — 127 Rue Tablot, Laurier-Station, QC G0S 1N0", en: "For any privacy question: info@misterdil.ca — +1 581 443 9464 — 127 Rue Tablot, Laurier-Station, QC G0S 1N0" },
       },
     ],
   },
   mentions: {
     title: { fr: "Mentions légales", en: "Legal Notice" },
     sections: [
-      { title: { fr: "1. Éditeur du site", en: "1. Site publisher" }, body: { fr: "Export Monde Prestige Inc. — société constituée au Canada. Adresse postale et numéro d'enregistrement : à compléter par l'entreprise.", en: "Export Monde Prestige Inc. — a company incorporated in Canada. Mailing address and registration number: to be completed by the company." } },
+      { title: { fr: "1. Éditeur du site", en: "1. Site publisher" }, body: { fr: "Export Monde Prestige Inc. — société constituée au Canada. Siège social : 127 Rue Tablot, Laurier-Station, QC G0S 1N0. Numéro d'entreprise : 1178887007. Téléphone : +1 581 443 9464. Courriel : info@misterdil.ca", en: "Export Monde Prestige Inc. — a company incorporated in Canada. Head office: 127 Rue Tablot, Laurier-Station, QC G0S 1N0. Business number: 1178887007. Phone: +1 581 443 9464. Email: info@misterdil.ca" } },
       { title: { fr: "2. Nature des services", en: "2. Nature of services" }, body: { fr: "Les services décrits sur ce site relèvent de la structuration opérationnelle, de la coordination et de la gestion numérique de projets. Export Monde Prestige Inc. n'est pas une firme d'ingénierie réglementée ni un entrepreneur licencié ; les services réservés aux professionnels autorisés (ingénierie, architecture, etc.) doivent être fournis par de tels professionnels.", en: "The services described on this site fall under operational structuring, coordination and digital project management. Export Monde Prestige Inc. is not a regulated engineering firm or a licensed contractor; services reserved for authorized professionals (engineering, architecture, etc.) must be provided by such professionals." } },
       { title: { fr: "3. Propriété intellectuelle", en: "3. Intellectual property" }, body: { fr: "L'ensemble du contenu de ce site (textes, visuels, logo) est la propriété d'Export Monde Prestige Inc., sauf indication contraire. Toute reproduction sans autorisation écrite est interdite.", en: "All content on this site (text, visuals, logo) is the property of Export Monde Prestige Inc. unless stated otherwise. Any reproduction without written authorization is prohibited." } },
       { title: { fr: "4. Responsabilité", en: "4. Liability" }, body: { fr: "Les informations publiées sur ce site sont fournies à titre indicatif et ne constituent ni un conseil professionnel ni une offre contractuelle. Les engagements ne découlent que d'une proposition formelle acceptée.", en: "Information published on this site is indicative only and constitutes neither professional advice nor a contractual offer. Commitments arise solely from a formal proposal accepted in writing." } },
@@ -221,6 +221,8 @@ export const PAGE_HEADERS = {
       en: "Fill in the form below or write to us directly. We answer every request, no exceptions.",
     },
     emailLabel: { fr: "Par courriel", en: "By email" },
+    phoneLabel: { fr: "Par téléphone", en: "By phone" },
+    addressLabel: { fr: "Adresse", en: "Address" },
     hours: { fr: "Du lundi au vendredi, 9 h à 17 h (HE)", en: "Monday to Friday, 9 a.m. to 5 p.m. (ET)" },
     hoursLabel: { fr: "Heures d'ouverture", en: "Business hours" },
     region: { fr: "Canada — Ontario, Ottawa et Québec en priorité", en: "Canada — Ontario, Ottawa and Quebec first" },

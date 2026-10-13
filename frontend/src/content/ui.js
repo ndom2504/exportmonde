@@ -3,6 +3,10 @@ export const SITE = {
   domain: "www.exportmondeprestigeinc.com",
   url: "https://www.exportmondeprestigeinc.com",
   email: "info@misterdil.ca",
+  phoneHref: "tel:+15814439464",
+  phoneDisplay: "+1 581 443 9464",
+  address: "127 Rue Tablot, Laurier-Station, QC G0S 1N0",
+  businessNumber: "1178887007",
 };
 
 export const IMG = {
@@ -41,7 +45,7 @@ export const UI = {
     navTitle: { fr: "Navigation", en: "Navigation" },
     servicesTitle: { fr: "Services", en: "Services" },
     contactTitle: { fr: "Coordonnées", en: "Contact" },
-    address: { fr: "Canada — adresse postale à compléter", en: "Canada — mailing address to be confirmed" },
+    address: { fr: "127 Rue Tablot, Laurier-Station, QC G0S 1N0", en: "127 Rue Tablot, Laurier-Station, QC G0S 1N0" },
     legal: { fr: "Légal", en: "Legal" },
     privacy: { fr: "Politique de confidentialité", en: "Privacy Policy" },
     mentions: { fr: "Mentions légales", en: "Legal Notice" },

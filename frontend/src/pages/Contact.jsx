@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Mail, Clock, MapPin, ArrowRight, CheckCircle2, AlertCircle } from "lucide-react";
+import { Mail, Clock, MapPin, Phone, ArrowRight, CheckCircle2, AlertCircle } from "lucide-react";
 import Seo from "@/components/Seo";
 import { Reveal } from "@/components/Reveal";
 import { SITE, UI, SERVICE_OPTIONS } from "@/content/ui";
 import { PAGE_HEADERS } from "@/content/pages";
 import { useLang } from "@/lib/lang";
 import api, { formatApiErrorDetail } from "@/lib/api";
+import { trackEvent } from "@/lib/analytics";
 
 const initial = { first_name: "", last_name: "", company: "", email: "", phone: "", service: "", message: "", budget: "", deadline: "", consent: false, company_website: "" };
 
@@ -43,6 +44,7 @@ export default function Contact() {
       ["budget", "deadline", "phone"].forEach((k) => { if (!payload[k]) delete payload[k]; });
       const { data } = await api.post("/leads", payload);
       setEmailSent(data.email_sent !== false);
+      trackEvent("generate_lead");
       setStatus("success");
     } catch (err) {
       setServerError(formatApiErrorDetail(err.response?.data?.detail));
@@ -101,6 +103,14 @@ export default function Contact() {
                   <li>
                     <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest2 text-turquoise"><Mail size={13} /> {t(PAGE_HEADERS.contact.emailLabel)}</p>
                     <a href={`mailto:${SITE.email}`} data-testid="contact-email-link" className="mt-2 block text-lg text-white transition-colors hover:text-turquoise">{SITE.email}</a>
+                  </li>
+                  <li>
+                    <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest2 text-turquoise"><Phone size={13} /> {t(PAGE_HEADERS.contact.phoneLabel)}</p>
+                    <a href={SITE.phoneHref} data-testid="contact-phone-link" className="mt-2 block text-lg text-white transition-colors hover:text-turquoise">{SITE.phoneDisplay}</a>
+                  </li>
+                  <li>
+                    <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest2 text-turquoise"><MapPin size={13} /> {t(PAGE_HEADERS.contact.addressLabel)}</p>
+                    <p className="mt-2 text-white/80">{SITE.address}</p>
                   </li>
                   <li>
                     <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest2 text-turquoise"><Clock size={13} /> {t(PAGE_HEADERS.contact.hoursLabel)}</p>

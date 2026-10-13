@@ -17,6 +17,8 @@ import Legal from "@/pages/Legal";
 import AdminLogin from "@/pages/AdminLogin";
 import AdminDashboard from "@/pages/AdminDashboard";
 import NotFound from "@/pages/NotFound";
+import ConsentBanner from "@/components/ConsentBanner";
+import { initAnalytics } from "@/lib/analytics";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -101,6 +103,9 @@ class ErrorBoundary extends Component {
 }
 
 function App() {
+  useEffect(() => {
+    initAnalytics();
+  }, []);
   return (
     <ErrorBoundary>
       <LangProvider>
@@ -108,6 +113,7 @@ function App() {
           <ScrollToTop />
           <SmoothScroll />
           <Shell />
+          <ConsentBanner />
         </BrowserRouter>
       </LangProvider>
     </ErrorBoundary>

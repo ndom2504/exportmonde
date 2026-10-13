@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, MapPin, Clock } from "lucide-react";
+import { Mail, MapPin, Clock, Phone } from "lucide-react";
 import { UI, SITE } from "@/content/ui";
 import { SERVICES } from "@/content/services";
 import { useLang } from "@/lib/lang";
@@ -43,6 +43,10 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <Mail size={16} className="mt-0.5 shrink-0 text-electric" />
                 <a href={`mailto:${SITE.email}`} data-testid="footer-email-link" className="transition-colors hover:text-electric">{SITE.email}</a>
+              </li>
+              <li className="flex items-start gap-3">
+                <Phone size={16} className="mt-0.5 shrink-0 text-electric" />
+                <a href={SITE.phoneHref} data-testid="footer-phone-link" className="transition-colors hover:text-electric">{SITE.phoneDisplay}</a>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin size={16} className="mt-0.5 shrink-0 text-electric" />

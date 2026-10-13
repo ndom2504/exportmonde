@@ -34,16 +34,20 @@ Concevoir, développer, tester et documenter le site web corporatif complet d'Ex
 - SEO complet, favicon SVG EMP, robots.txt, sitemap.xml, données structurées.
 
 ## Backlog priorisé
-- P1 : brancher Google Analytics + Search Console à la mise en ligne (événements de conversion : soumission, clic courriel).
-- P1 : compléter adresse postale / téléphone / numéro d'enregistrement (champs « à compléter »).
+- P1 : brancher Google Analytics (renseigner REACT_APP_GA_MEASUREMENT_ID dans frontend/.env) et valider la propriété Google Search Console (DNS ou balise meta) à la mise en ligne. Le consentement et les événements de conversion (generate_lead, contact_email_click, contact_phone_click, consultation_request_click) sont déjà implémentés.
 - P2 : blog avec catégories/recherche côté public ; images d'articles.
 - P2 : version anglaise du sitemap (hreflang) si trafic EN le justifie.
 - P2 : formulaire multi-étapes et pièce jointe pour appels d'offres.
 
 ## Prochaines étapes
-1. Ajouter les coordonnées réelles (adresse, téléphone) dans Footer + pages légales.
+1. Renseigner REACT_APP_GA_MEASUREMENT_ID (GA4) et valider Search Console lors de la mise en production.
 2. Activer les campagnes Google Ads avec les pages services comme destinations.
 3. Compléter les métadonnées « dernière mise à jour » des pages légales à la publication.
+
+## Coordonnées (intégrées au site — 2026-10-13)
+- Courriel : info@misterdil.ca · Téléphone : +1 581 443 9464
+- Adresse : 127 Rue Tablot, Laurier-Station, QC G0S 1N0 · Numéro d'entreprise : 1178887007
+- Affichées dans : pied de page, page contact, mentions légales, politique de confidentialité, JSON-LD (index.html).
 
 ## Identifiants de test
 Voir /app/memory/test_credentials.md — admin@exportmondeprestigeinc.com / Prestige2026!Emp#admin (identifiants de test).

@@ -36,10 +36,28 @@ Titles/metas/canonicals par page (composant `Seo`), Open Graph, JSON-LD (Organiz
 ## Sécurité
 Validation Pydantic côté serveur + validation côté client, honeypot antispam, limite de débit (5 demandes/heure/IP), échappement HTML dans les gabarits de courriel, cookies httpOnly + verrouillage après 5 tentatives de connexion (15 min), secrets uniquement en variables d'environnement.
 
-## Services externes à configurer / à compléter
-- **Adresse postale, téléphone, numéro d'enregistrement de l'entreprise** : champs « à compléter » dans le pied de page, la politique de confidentialité et les mentions légales.
-- **Google Search Console / Analytics** : à activer lors de la mise en production.
+## Google Analytics, Search Console et événements de conversion
+Le suivi est **consentement d'abord** (conforme aux exigences canadiennes/québécoises) : rien ne se charge avant que le visiteur ait accepté la bannière de consentement. Aucune donnée personnelle n'est envoyée dans les événements.
+
+1. **Google Analytics** : créez une propriété GA4, copiez l'identifiant de mesure (G-XXXXXXX), puis dans `frontend/.env` renseignez `REACT_APP_GA_MEASUREMENT_ID=G-XXXXXXXXXX` et redémarrez le frontend.
+2. **Google Search Console** : ajoutez la propriété `https://www.exportmondeprestigeinc.com`, validez par DNS (TXT) ou par balise meta dans `public/index.html`, puis soumettez `https://www.exportmondeprestigeinc.com/sitemap.xml`.
+3. **Événements de conversion configurés** (à lier comme conversions dans GA4) :
+   - `generate_lead` — soumission réussie du formulaire de demande de soumission
+   - `contact_email_click` — clic sur une adresse courriel
+   - `contact_phone_click` — clic sur un numéro de téléphone
+   - `consultation_request_click` — clic sur « Planifier une consultation »
+4. Les clics `tel:` / `mailto:` et la soumission sont suivis automatiquement dès que le consentement est accordé et l'identifiant configuré. Sans identifiant, le site fonctionne normalement (aucun script chargé).
+
+## Services externes à configurer
+- **Google Analytics** : renseigner `REACT_APP_GA_MEASUREMENT_ID` (voir ci-dessus).
+- **Google Search Console** : validation du domaine requise (DNS ou balise meta).
 - Les services réglementés (ingénierie, architecture) ne sont pas offerts : les pages le précisent et recommandent des professionnels autorisés.
+
+## Coordonnées de l'entreprise (affichées sur le site)
+- Courriel : info@misterdil.ca
+- Téléphone : +1 581 443 9464
+- Adresse : 127 Rue Tablot, Laurier-Station, QC G0S 1N0
+- Numéro d'entreprise : 1178887007
 
 ## Tests exécutés (résultats réels)
 - POST /api/leads valide → `{"ok":true,"email_sent":true}` (courriel reçu par le destinataire configuré)
