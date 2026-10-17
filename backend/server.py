@@ -23,6 +23,7 @@ from pydantic import BaseModel, Field, EmailStr, field_validator
 from typing import Optional, List
 from motor.motor_asyncio import AsyncIOMotorClient
 from emergentintegrations.llm.chat import LlmChat, UserMessage, TextDelta, StreamDone
+from replies import build_reply, reply_html
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / ".env")
@@ -39,7 +40,7 @@ JWT_SECRET = os.environ["JWT_SECRET"]
 JWT_ALGORITHM = "HS256"
 ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "admin@example.com")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin123")
-NOTIF_EMAIL = os.environ.get("NOTIF_EMAIL", "info@misterdil.ca")
+NOTIF_EMAIL = os.environ.get("NOTIF_EMAIL", "morelstevensndong@gmail.com")
 
 EMAIL_BASE_URL = "https://integrations.emergentagent.com"
 EMAIL_KEY = os.environ["EMERGENT_EMAIL_KEY"]
@@ -218,11 +219,12 @@ def _assert_safe_email(subject: str, html: str) -> None:
                 raise ValueError(f"Anchor text {m.group(1)!r} != real link host {real!r} (G3)")
 
 
-async def send_email(*, to: str, subject: str, html: str) -> str | None:
+async def send_email(*, to: str, subject: str, html: str, reply_to: str | None = None) -> str | None:
     _assert_safe_email(subject, html)
     payload = {"to": [to], "subject": subject, "html": html, "from_name": EMAIL_FROM_NAME}
-    if EMAIL_REPLY_TO:
-        payload["contact_email"] = EMAIL_REPLY_TO
+    contact = reply_to or EMAIL_REPLY_TO
+    if contact:
+        payload["contact_email"] = contact
     async with httpx.AsyncClient(timeout=30) as http:
         resp = await http.post(f"{EMAIL_BASE_URL}/api/v1/email/send",
                                headers={"X-Email-Key": EMAIL_KEY}, json=payload)
@@ -265,6 +267,88 @@ def notif_email_html(lead: dict) -> str:
     </td></tr>
   </table>
 </div>"""
+
+
+REPLY_SYSTEM = """Tu rédiges le corps d'un courriel de réponse d'Export Monde Prestige Inc. au demandeur d'une consultation.
+
+Règles :
+- Texte brut uniquement. Aucun Markdown, aucune liste à puces, aucun lien, aucune adresse web.
+- Langue du demandeur (français par défaut). 140 à 180 mots.
+- Reprends le besoin avec ses propres éléments, puis propose UNE prochaine étape de cadrage adaptée au service.
+- La consultation initiale est gratuite. Les honoraires viennent ensuite par devis. N'annonce aucun prix, délai garanti, résultat chiffré ou référence client.
+- L'entreprise ne fournit pas de services réglementés d'ingénierie, d'architecture ou de droit.
+- Ne demande jamais de mot de passe, de paiement ou de donnée bancaire.
+- Termine en invitant à répondre à ce courriel ou à appeler le +1 581 443 9464.
+- Signe « Export Monde Prestige Inc. »."""
+
+
+async def draft_strategic_reply(lead: dict) -> tuple[str, str, str]:
+    subject, fallback = build_reply(lead)
+    if not EMERGENT_LLM_KEY:
+        return subject, fallback, "modele"
+    brief = (
+        f"Langue: {lead.get('lang') or 'fr'}\n"
+        f"Nom: {lead.get('first_name', '')} {lead.get('last_name', '')}\n"
+        f"Entreprise: {lead.get('company', '')}\n"
+        f"Service: {lead.get('service_label', '')}\n"
+        f"Budget indiqué: {lead.get('budget') or 'non précisé'}\n"
+        f"Échéance souhaitée: {lead.get('deadline') or 'non précisée'}\n"
+        f"Message:\n{lead.get('message', '')}"
+    )
+    try:
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=f"reply-{lead.get('id', 'x')}-{uuid.uuid4().hex[:8]}",
+            system_message=REPLY_SYSTEM,
+        ).with_model("openai", AI_MODEL)
+        chunks = []
+
+        async def collect():
+            async for event in chat.stream_message(UserMessage(text=brief)):
+                if isinstance(event, TextDelta):
+                    chunks.append(event.content)
+                elif isinstance(event, StreamDone):
+                    break
+
+        await asyncio.wait_for(collect(), timeout=25)
+        text = re.sub(r"[*_#`]", "", "".join(chunks))
+        text = re.sub(r"https?://\S+", "", text).strip()
+        if len(text) < 80:
+            return subject, fallback, "modele"
+        return subject, text[:4000], "ia"
+    except Exception as e:
+        logger.warning(f"Reply draft fallback: {e}")
+        return subject, fallback, "modele"
+
+
+async def deliver_lead_reply(lead: dict) -> dict:
+    subject, body, source = await draft_strategic_reply(lead)
+    sent = True
+    error = None
+    try:
+        await send_email(
+            to=lead["email"],
+            subject=subject,
+            html=reply_html(body),
+            reply_to=NOTIF_EMAIL,
+        )
+    except Exception as e:
+        sent = False
+        error = str(e)[:300]
+        logger.warning(f"Lead reply email error: {e}")
+    update = {
+        "reply_subject": subject,
+        "reply_body": body,
+        "reply_source": source,
+        "reply_sent": sent,
+        "reply_error": error,
+    }
+    if sent:
+        update["reply_sent_at"] = now_iso()
+    await db.leads.update_one({"id": lead["id"]}, {"$set": update})
+    return {"id": lead["id"], "reply_sent": sent, "reply_source": source,
+            "reply_subject": subject, "reply_body": body, "reply_error": error,
+            "reply_sent_at": update.get("reply_sent_at")}
 
 
 # ---------- models ----------
@@ -362,8 +446,9 @@ async def create_lead(input: LeadCreate, request: Request):
     except Exception as e:
         email_sent = False
         logger.warning(f"Email notification error: {e}")
+    reply = await deliver_lead_reply(lead)
     lead.pop("_id", None)
-    return {"ok": True, "id": lead["id"], "email_sent": email_sent}
+    return {"ok": True, "id": lead["id"], "email_sent": email_sent, "reply_sent": reply["reply_sent"]}
 
 
 @api_router.get("/articles")
@@ -441,6 +526,14 @@ async def update_lead(lead_id: str, input: LeadStatusUpdate, user: dict = Depend
     if not res.matched_count:
         raise HTTPException(status_code=404, detail="Demande introuvable")
     return {"ok": True}
+
+
+@api_router.post("/admin/leads/{lead_id}/reply")
+async def resend_lead_reply(lead_id: str, user: dict = Depends(get_current_user)):
+    lead = await db.leads.find_one({"id": lead_id}, {"_id": 0})
+    if not lead:
+        raise HTTPException(status_code=404, detail="Demande introuvable")
+    return await deliver_lead_reply(lead)
 
 
 @api_router.get("/admin/articles")
@@ -602,7 +695,8 @@ async def ai_lead(input: AiLeadIn, request: Request):
     except Exception as e:
         email_sent = False
         logger.warning(f"AI lead email error: {e}")
-    return {"ok": True, "email_sent": email_sent}
+    reply = await deliver_lead_reply(lead)
+    return {"ok": True, "email_sent": email_sent, "reply_sent": reply["reply_sent"]}
 
 
 @api_router.get("/admin/ai-chats")

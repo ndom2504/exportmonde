@@ -22,7 +22,7 @@ L'admin est seedé au démarrage du backend (ADMIN_EMAIL / ADMIN_PASSWORD). Les 
 | CORS_ORIGINS | Origines autorisées (séparées par virgules) |
 | JWT_SECRET | Signature des jetons admin |
 | ADMIN_EMAIL / ADMIN_PASSWORD | Compte administratif seedé |
-| NOTIF_EMAIL | Destinataire des demandes de soumission (info@misterdil.ca) |
+| NOTIF_EMAIL | Destinataire des notifications admin et adresse de réponse des courriels automatiques (morelstevensndong@gmail.com) |
 | EMERGENT_EMAIL_KEY | Clé du service de courriel géré |
 | EMAIL_FROM_NAME / EMAIL_REPLY_TO | Nom d'expédition / reply-to |
 | FRONTEND_URL | URL du frontend (CORS) |
@@ -54,7 +54,7 @@ Le suivi est **consentement d'abord** (conforme aux exigences canadiennes/québ�
 - Les services réglementés (ingénierie, architecture) ne sont pas offerts : les pages le précisent et recommandent des professionnels autorisés.
 
 ## Coordonnées de l'entreprise (affichées sur le site)
-- Courriel : info@misterdil.ca
+- Courriel de notification : morelstevensndong@gmail.com
 - Téléphone : +1 581 443 9464
 - Adresse : 127 Rue Tablot, Laurier-Station, QC G0S 1N0
 - Numéro d'entreprise : 1178887007
