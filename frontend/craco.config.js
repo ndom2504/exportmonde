@@ -1,5 +1,27 @@
 // craco.config.js
+const Module = require("module");
 const path = require("path");
+
+// fork-ts-checker-webpack-plugin is required while Create React App builds
+// its webpack config, before `configure` can remove the plugin. On Node 24
+// its bundled ajv-keywords 3.x crashes when ajv 8 is installed
+// (`formats.date` is missing). The production bundle does not need that
+// checker, so return a no-op before the real package loads.
+const originalModuleLoad = Module._load;
+Module._load = function (request, parent, isMain) {
+  const normalized = String(request).replace(/\\/g, "/");
+  if (
+    normalized === "fork-ts-checker-webpack-plugin" ||
+    normalized.endsWith("/node_modules/fork-ts-checker-webpack-plugin") ||
+    normalized.endsWith("/fork-ts-checker-webpack-plugin/lib/index.js")
+  ) {
+    return class ForkTsCheckerWebpackPlugin {
+      apply() {}
+    };
+  }
+  return originalModuleLoad.apply(this, arguments);
+};
+
 require("dotenv").config();
 
 // Check if we're in development/preview mode (not production build)
