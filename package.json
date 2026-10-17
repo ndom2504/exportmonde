@@ -2,6 +2,6 @@
   "name": "exportmonde",
   "private": true,
   "scripts": {
-    "build": "npm --prefix frontend run build"
+    "build": "npm --prefix frontend install --no-audit --no-fund && CI=false npm --prefix frontend run build"
   }
 }
