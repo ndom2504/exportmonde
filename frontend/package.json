@@ -2,6 +2,9 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
     "@hookform/resolvers": "5.0.1",
     "@radix-ui/react-accordion": "1.2.8",
@@ -92,7 +95,11 @@
     "eslint-plugin-react-hooks": "5.2.0",
     "globals": "15.15.0",
     "postcss": "8.5.28",
-    "tailwindcss": "3.4.17"
+    "tailwindcss": "3.4.17",
+    "ajv": "8.17.1"
+  },
+  "overrides": {
+    "ajv": "8.17.1"
   },
   "resolutions": {
     "react-router": "7.18.4",
